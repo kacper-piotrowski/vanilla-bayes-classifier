@@ -62,8 +62,7 @@ def classify(vector, eg1_counts, type_counts, eg2_counts, type1_counts,dis_type,
 
         result = prop_eg1 * prop_type1 * prop_eg2 * prop_type
         results_dict[eg1val] = result
-    max_result = sorted(results_dict.items(), key=lambda item: item[1], reverse=True)
-    return max_result[0][0]
+    return max(results_dict, key=results_dict.get)
 
 def classify_file(file_name, eg1_counts, type_counts, eg2_counts, type1_counts,dis_type,dis_type1,dis_eg2):
     file_data = open_file_and_save(file_name)
@@ -77,6 +76,6 @@ def classify_file(file_name, eg1_counts, type_counts, eg2_counts, type1_counts,d
         total += 1
     print(f"Celność: {round((correct / total)*100,2)}%")
 
-test_data = open_file_and_save("pokemon_train.csv")
-eg1_counts, type_counts, eg2_counts, type1_counts, dis_type, dis_type1, dis_eg2 = train(test_data)
+train_data = open_file_and_save("pokemon_train.csv")
+eg1_counts, type_counts, eg2_counts, type1_counts, dis_type, dis_type1, dis_eg2 = train(train_data)
 classify_file("pokemon_test.csv", eg1_counts, type_counts, eg2_counts, type1_counts,dis_type,dis_type1,dis_eg2)
