@@ -36,3 +36,17 @@ def train(data):
         eg2_counts[row[2]][row[3]] = eg2_counts[row[2]].get(row[3], 0) + 1
         type1_counts[row[2]][row[1]] = type1_counts[row[2]].get(row[1], 0) + 1
     return eg1_counts, type_counts, eg2_counts, type1_counts
+
+def classify(vector, eg1_counts, type_counts, eg2_counts, type1_counts):
+    typeval = vector[0]
+    type1val = vector[1]
+    eg2val = vector[3]
+    results_dict = {}
+    for eg1val in eg1_counts:
+        result = (eg1_counts.get(eg1val, 0) * type_counts.get(eg1val, {}).get(typeval, 0) *
+                  eg2_counts.get(eg1val, {}).get(eg2val, 0) * type1_counts.get(eg1val, {}).get(type1val, 1))
+        results_dict[eg1val] = result
+    max_result = sorted(results_dict.items(), key=lambda item: item[1], reverse=True)
+    return max_result[0][0]
+
+
