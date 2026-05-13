@@ -70,11 +70,11 @@ def classify_file(file_name, eg1_counts, type_counts, eg2_counts, type1_counts,d
     total = 0
     for row in file_data:
         classification = classify(row, eg1_counts, type_counts, eg2_counts, type1_counts,dis_type,dis_type1,dis_eg2)
-        print(str(total + 1) + ". Klasyfikacja: " + classification + "  ||  Prawdziwy typ: " + row[2])
+        print(str(total + 1) + ". Classification: " + classification + "  ||  Real type: " + row[2])
         if classification == row[2]:
             correct += 1
         total += 1
-    print(f"Celność: {round((correct / total)*100,2)}%")
+    print(f"Accuracy: {round((correct / total)*100,2)}%")
 
 train_data = open_file_and_save("pokemon_train.csv")
 eg1_counts, type_counts, eg2_counts, type1_counts, dis_type, dis_type1, dis_eg2 = train(train_data)
